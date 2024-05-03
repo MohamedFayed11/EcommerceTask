@@ -1,0 +1,22 @@
+
+<div class="container mx-auto">
+  <div class="row">
+    <div class="col-xs-12" >
+      <app-add-product (createProduct)="onCreateProduct($event)"></app-add-product>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row mt-4">
+      <div class="card-group">
+
+        <app-product *ngFor="let product of products" [product]="product"></app-product>
+
+
+      </div>
+
+  </div>
+
+</div>
