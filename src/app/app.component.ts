@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Meal } from './meal';
+import { MealsComponent } from './meals/meals.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
+ 
   title = 'ecommerce-task';
   products: any = [
     {
@@ -55,5 +58,37 @@ export class AppComponent {
     });
 
   }
+
+  meals: Meal[] = [
+    {
+      name: 'Spaghetti',
+      description: 'Pasta with tomato sauce',
+      image: 'https://source.unsplash.com/600x400/?spaghetti'
+    },
+    {
+      name: 'Pizza',
+      description: 'Pizza with tomato sauce and cheese',
+      image: 'https://source.unsplash.com/600x400/?pizza'
+    },
+    {
+      name: 'Burger',
+      description: 'Burger with beef patty and cheese',
+      image: 'https://source.unsplash.com/600x400/?burger'
+    }
+    
+  ];
+  @ViewChildren(MealsComponent) mealsRef: QueryList<MealsComponent>;
+
+  @ViewChild(MealsComponent) mealRef : MealsComponent;
+
+  ngAfterViewInit(): void {
+    console.log("Meals Ref ",this.mealsRef['_results'][0]['meal']['description']);
+  }
+
+  getRandomDescription(){
+    let randomIndex = Math.floor(Math.random() * this.meals.length);
+    this.mealRef.displayMealDescription(this.meals[randomIndex].description);
+  }
+
 
 }
